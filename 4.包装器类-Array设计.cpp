@@ -2,6 +2,8 @@
 #include<stdlib.h>
 #define DefaultSize 10
 
+// 包装类容器Array
+
 template<class Type>
 class Array{
     private:
@@ -17,7 +19,7 @@ class Array{
         }; //dynamic allocate memory for array
     public:
         Array(int Size = DefaultSize);
-        Array(const Array<Type> &x) //复制构造函数；深复制
+        Array(const Array<Type> &x); //复制构造函数；深复制
         ~Array(){delete [] elements;} //析构函数
         Array<Type>& operator=(const Array<Type>&A); //copy array 函数返回值为引用：可以避免内存的再分配。提高效率
         Type& operator[](int i); //get the ith element
@@ -65,7 +67,7 @@ Type& Array<Type>::operator[](int i){
     //数组运算符重载；防止越界；c++没有越界检查？？
     if(i<0||i>ArraySize-1){
         std::cerr<<"下标越界"<<std::endl;
-        return NULL;//这里其实应该抛出异常
+      //  return NULL;//这里其实应该抛出异常
     }
     return elements[i];
 }
@@ -87,3 +89,13 @@ void Array<Type>::ReSize(int sz){
     ArraySize = sz;
     }
 }
+
+int main(){
+    Array<int> a;
+    std::cout<<a[1]<<std::endl;
+    return 0;
+}
+
+
+//总结：分配内存必定要内存检查
+//总结：涉及到下标必定要想到越界检查
