@@ -83,7 +83,7 @@ void Array<Type>::ReSize(int sz){
     int n = (sz<=ArraySize)?sz:ArraySize;
     Type* srcptr = elements;
     Type* destptr = newarray;
-    while(n--) *destptr++ = *srcptr++;
+    while(n--) *destptr++ = *srcptr++;jiancha
     delete [] elements; //清除原有内存
     elements = newarray; //注意：原有指针还在。
     ArraySize = sz;
