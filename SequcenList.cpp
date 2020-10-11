@@ -104,5 +104,4 @@ int Union(SeqList<Type> &LA,SeqList<Type>LB){
         }
     }
     return 1;
-
 }
