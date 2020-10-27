@@ -23,10 +23,7 @@ class Stack{
 template<class Type>
 Stack<Type>::~Stack(){
     std::cout<<"clear the stack..."<<std::endl;
-    while (top!=-1)
-    {
-        pop();
-    }
+    delete data;
     std::cout<<"clear done!"<<std::endl;
 }
 
@@ -55,7 +52,7 @@ Type Stack<Type>::pop(){
 }
 
 int main(){
-    Stack<int> stack_test(1);
+    Stack<int> stack_test(10);
     stack_test.push(1);
     stack_test.push(2);
     stack_test.push(3);
@@ -66,7 +63,6 @@ int main(){
     stack_test.push(8);
     stack_test.push(9);
     stack_test.push(10);
-    stack_test.push(11);
     for(int i = 0;i<10;i++){
         std::cout<<stack_test.pop()<<std::endl;
     }
