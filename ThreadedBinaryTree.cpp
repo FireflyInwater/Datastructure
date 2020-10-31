@@ -14,7 +14,7 @@ class ThreadedBinaryTree{
         ThreadedBinaryTreeNode(Type val):data(val),leftptr(nullptr),leftflag(true),rightptr(nullptr),rightflag(true){};
     };
     ThreadedBinaryTreeNode* root;
-    ThreadedBinaryTreeNode* pre;
+    ThreadedBinaryTreeNode* pre = root;
     public:
         ThreadedBinaryTree();
         void InCreateTBTree(ThreadedBinaryTreeNode **head);// 中序创建
@@ -58,5 +58,26 @@ void ThreadedBinaryTree<Type>::InThreading(ThreadedBinaryTreeNode* p){
         }
         pre = p;
         InThreading(p->rightptr);
+    }
+}
+
+template<class Type>
+void ThreadedBinaryTree<Type>::InOrderTraverse(ThreadedBinaryTreeNode * p){
+    //遍历node
+    ThreadedBinaryTreeNode* tmp = p->leftptr;
+    while (tmp! = p)
+    {
+        while (tmp->leftflag)
+        {
+            tmp = tmp->leftptr;
+        }
+
+        std::cout<<tmp->data<<std::endl;
+        while (tmp->rightflag&&tmp->rightptr!=p))
+        {
+            tmp = tmp->rightptr;
+            std::cout<<tmp->data<<std::endl;
+        }
+        tmp = tmp->rightptr;
     }
 }
