@@ -1,3 +1,4 @@
+#include<queue> //用自带的库实现队列
 #define MAXVEX 100  //最大顶点数，由用户决定
 #define INFINITY 65535 // 用65535表示无穷
 typedef bool Boolean;
@@ -12,6 +13,7 @@ class MGraph{
         void CreateMGraph(MGraph &G);
         void DFSTraverse(MGraph G);
         void DFS(MGraph G,int i);
+        void BFSTraverse(MGraph G);//邻接矩阵的广度遍历算法
 };
 
 template<class VertexType,class EdgeType>
@@ -41,28 +43,30 @@ void MGraph<VertexType,EdgeType>::CreateMGraph(MGraph &G){
 }
 
 template<class VertexType,class EdgeType>
-void MGraph<VertexType,EdgeType>::DFS(MGraph G,int i){
-    int j;
-    visited[i] = true; //表示当前顶点已经访问
-    std::cout<<G.vexs[i]<<std::endl; //操作
-    for ( j = 0; j < G.numVertexes; j++)
+void MGraph<VertexType,EdgeType>::BFSTraverse(MGraph G){
+    int i,j;
+    std::queue<int> Q;
+    for (i = 0; i <G.numVertexes; i++)
     {
-        if(G.arc[i][j] == 1 && !visited[j]) //==1:不带权重的arc边
-            DFS(G,j); //对未访问的邻接节点递归调用
+        visited[i] = false; //初始化访问标志位
     }
-}
-
-
-template<class VertexType,class EdgeType>
-void MGraph<VertexType,EdgeType>::DFSTraverse(MGraph G){
-    int i;
-    for ( i = 0; i < G.numVertexes; i++)
-    {
-        visited[i] = false; //初始化所有顶点的访问状态
-    }
-    for ( i = 0; i < G.numVertexes; i++) //对于未访问过的顶点调用DFS
-    {
-        if(!visited[i])
-            DFS(G,i);
+    for(i = 0;i<G.numVertexes;i++){
+        if(!visited[i]){
+            visited[i] = true;
+            std::cout<<G.vexs[i]<<std::endl;
+            Q.push(i);//入队列
+            while (!Q.empty())
+            {
+                Q.pop();//出队列
+                for (j = 0; j < G.numVertexes; j++)
+                {
+                    if(G.arc[i][j]==1&&!visited[j]){
+                        visited[j] = true;
+                        std::cout<<G.vexs[j]<<std::endl;
+                        Q.push(j);
+                    }
+                }
+            }
+        }
     }
 }
